@@ -29,7 +29,7 @@ public class Calabash extends Creature implements Comparable<Calabash> {
         int x = this.getX();
         int y = this.getY();
         this.moveTo(another.getX(), another.getY());
-        ////another.moveTo(x, y);
+        another.moveTo(x, y);
     }
 
 }
