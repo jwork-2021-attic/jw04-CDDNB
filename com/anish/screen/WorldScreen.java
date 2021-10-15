@@ -3,9 +3,10 @@ package com.anish.screen;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
-import com.anish.calabashbros.BubbleSorter;
+import com.anish.calabashbros.SelectSorter;
 import com.anish.calabashbros.Calabash;
 import com.anish.calabashbros.World;
+import java.util.Random;
 
 import asciiPanel.AsciiPanel;
 
@@ -18,7 +19,17 @@ public class WorldScreen implements Screen {
     public WorldScreen() {
         world = new World();
 
-        bros = new Calabash[7];
+        bros = new Calabash[64];
+
+        Random random = new Random();
+        for (int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                bros[8*i + j] = new Calabash(new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)), world);
+                world.put(bros[8*i + j], 2 + 2*i, 2 + 2*j);
+            }
+        }
+
+        /*bros = new Calabash[7];
 
         bros[3] = new Calabash(new Color(204, 0, 0), 1, world);
         bros[5] = new Calabash(new Color(255, 165, 0), 2, world);
@@ -34,9 +45,9 @@ public class WorldScreen implements Screen {
         world.put(bros[3], 16, 10);
         world.put(bros[4], 18, 10);
         world.put(bros[5], 20, 10);
-        world.put(bros[6], 22, 10);
+        world.put(bros[6], 22, 10);*/
 
-        BubbleSorter<Calabash> b = new BubbleSorter<>();
+        SelectSorter<Calabash> b = new SelectSorter<>();
         b.load(bros);
         b.sort();
 
