@@ -41,6 +41,12 @@ public class World {
         this.creatures = new ArrayList<>();
     }
 
+    public void handleStep(int x, int y) {
+        if(tile(x, y) == Tile.FLOOR) {
+            tiles[x][y] = Tile.STEPPEDFLOOR;
+        }
+    }
+
     public Tile tile(int x, int y) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return Tile.BOUNDS;
@@ -71,17 +77,9 @@ public class World {
         }
     }
 
-    public void addAtEmptyLocation(Creature creature) {
-        int x;
-        int y;
-
-        do {
-            x = (int) (Math.random() * this.width);
-            y = (int) (Math.random() * this.height);
-        } while (!tile(x, y).isGround() || this.creature(x, y) != null);
-
-        creature.setX(x);
-        creature.setY(y);
+    public void addDefaultCreature(Creature creature) {
+        creature.setX(0);
+        creature.setY(0);
 
         this.creatures.add(creature);
     }

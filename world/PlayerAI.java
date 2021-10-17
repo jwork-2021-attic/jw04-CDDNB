@@ -17,31 +17,21 @@
  */
 package world;
 
-import java.util.List;
-
 /**
  *
  * @author Aeranythe Echosong
  */
 public class PlayerAI extends CreatureAI {
 
-    private List<String> messages;
-
-    public PlayerAI(Creature creature, List<String> messages) {
+    public PlayerAI(Creature creature) {
         super(creature);
-        this.messages = messages;
     }
 
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
             creature.setX(x);
             creature.setY(y);
-        } else if (tile.isDiggable()) {
-            creature.dig(x, y);
+            
         }
-    }
-
-    public void onNotify(String message) {
-        this.messages.add(message);
     }
 }

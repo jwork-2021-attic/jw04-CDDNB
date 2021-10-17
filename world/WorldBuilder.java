@@ -1,7 +1,5 @@
 package world;
 
-import java.util.Random;
-
 /*
  * Copyright (C) 2015 s-zhouj
  *
@@ -39,7 +37,7 @@ public class WorldBuilder {
         return new World(tiles);
     }
 
-    private WorldBuilder randomizeTiles() {
+    /*private WorldBuilder randomizeTiles() {
         for (int width = 0; width < this.width; width++) {
             for (int height = 0; height < this.height; height++) {
                 Random rand = new Random();
@@ -54,46 +52,28 @@ public class WorldBuilder {
             }
         }
         return this;
-    }
-
-    private WorldBuilder smooth(int factor) {
-        Tile[][] newtemp = new Tile[width][height];
-        if (factor > 1) {
-            smooth(factor - 1);
-        }
+    }*/
+    private WorldBuilder buildTiles() {
+        MazeGenerator mazeGenerator = new MazeGenerator(width<height?width : height);
+        mazeGenerator.generateMaze();
         for (int width = 0; width < this.width; width++) {
             for (int height = 0; height < this.height; height++) {
-                // Surrounding walls and floor
-                int surrwalls = 0;
-                int surrfloor = 0;
-
-                // Check the tiles in a 3x3 area around center tile
-                for (int dwidth = -1; dwidth < 2; dwidth++) {
-                    for (int dheight = -1; dheight < 2; dheight++) {
-                        if (width + dwidth < 0 || width + dwidth >= this.width || height + dheight < 0
-                                || height + dheight >= this.height) {
-                            continue;
-                        } else if (tiles[width + dwidth][height + dheight] == Tile.FLOOR) {
-                            surrfloor++;
-                        } else if (tiles[width + dwidth][height + dheight] == Tile.WALL) {
-                            surrwalls++;
-                        }
-                    }
+                
+                switch (mazeGenerator.getMaze()[width][height]){
+                //switch (new MazeGenerator(40).getMaze()[width][height]) {
+                    case 1:
+                        tiles[width][height] = Tile.FLOOR;
+                        break;
+                    case 0:
+                        tiles[width][height] = Tile.WALL;
+                        break;
                 }
-                Tile replacement;
-                if (surrwalls > surrfloor) {
-                    replacement = Tile.WALL;
-                } else {
-                    replacement = Tile.FLOOR;
-                }
-                newtemp[width][height] = replacement;
             }
         }
-        tiles = newtemp;
         return this;
     }
 
-    public WorldBuilder makeCaves() {
-        return randomizeTiles().smooth(8);
+    public WorldBuilder makeMaze() {
+        return buildTiles();
     }
 }
