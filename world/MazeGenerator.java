@@ -15,7 +15,7 @@ class MazeGenerator {
     MazeGenerator(int dim) {
         maze = new int[dim][dim];
         dimension = dim;
-        //generateMaze();
+        generateMaze();
     }
 
     public int[][] getMaze() {
