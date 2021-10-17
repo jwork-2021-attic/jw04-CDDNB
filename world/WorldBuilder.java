@@ -55,7 +55,6 @@ public class WorldBuilder {
     }*/
     private WorldBuilder buildTiles() {
         MazeGenerator mazeGenerator = new MazeGenerator(width<height?width : height);
-        mazeGenerator.generateMaze();
         for (int width = 0; width < this.width; width++) {
             for (int height = 0; height < this.height; height++) {
                 
